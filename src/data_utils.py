@@ -112,7 +112,8 @@ def align_forecast_observation(nwm_df, usgs_df):
             forecast_value = row['streamflow_value']
             
             # Find the closest observation time (within 30 minutes)
-            time_diff = (usgs_df.index - valid_time).total_seconds().abs()
+            time_diff = (usgs_df.index - valid_time).total_seconds()
+            time_diff = np.abs(time_diff)
             closest_idx = time_diff.argmin()
             
             if time_diff[closest_idx] <= 1800:  # Within 30 minutes
